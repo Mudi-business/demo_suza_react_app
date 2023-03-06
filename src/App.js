@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Home from './views/Home';
+import MainLayout from './views/MainLayout';
+//nimetengeneza class inaitwa App alfu nikarithi
+//tabia za class ya React
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component{
+  render(){
+
+    //built method from React.component class
+    //lazima tu return function ili kuweza kuziita
+    //static files zetu 
+    return (
+     <MainLayout />
+    )
+  }
 }
 
-export default App;
+
