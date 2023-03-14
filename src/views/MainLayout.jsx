@@ -1,4 +1,4 @@
-import { Stack, Button, Box, Grid } from '@mui/material'
+import { Stack, Box, Grid } from '@mui/material'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import PrimarySearchAppBar from '../utils/AppBar'
