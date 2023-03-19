@@ -8,7 +8,6 @@ export default function SIdeBarItem({ title, icon,url }) {
         container: {
             backgroundColor: 'white',
             borderRadius: 7,
-
         },
         text: {
             marginTop: '5%'

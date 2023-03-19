@@ -1,10 +1,10 @@
 import { Stack } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import GeneralDialogActions from '../../utils/GeneralDialogActions'
 import ValidationTextField from '../../utils/ValidationTextField'
-
+import { AppContext } from '../../context/AppContext'
 export default function SeafoodForm({handleOnClose}) {
-
+    const {setForm,setDiolog} = useContext(AppContext);
     const [seafood,setSeafood] = useState('')
     const [quantity,setQuantity] = useState(0)
     const [price,setPrice] = useState(0)
@@ -47,11 +47,13 @@ export default function SeafoodForm({handleOnClose}) {
             <GeneralDialogActions
                 action={'Submit'}
                 handleSubmit={()=>{
-                    console.log(
-                        'seafood :',seafood,
-                        'qntity :',quantity,
-                        'price :',price
-                    )
+                    setForm({
+                        seafood,
+                        quantity,
+                        price
+                    })
+                    setDiolog(false)
+
                 }}
                 handleOnClose={handleOnClose}
             />

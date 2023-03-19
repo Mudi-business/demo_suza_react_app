@@ -1,49 +1,69 @@
-import { Stack, Box, Grid } from '@mui/material'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import PrimarySearchAppBar from '../utils/AppBar'
-import AppCard from '../utils/AppCard'
-import SideBar from '../utils/SideBar'
-import Home from './Home'
-
+import { Stack, Box, Grid } from "@mui/material";
+import React, {useMemo, useState } from "react";
+import { Outlet } from "react-router-dom";
+import PrimarySearchAppBar from "../utils/AppBar";
+import AppCard from "../utils/AppCard";
+import SideBar from "../utils/SideBar";
+import Home from "./Home";
+import { AppContext } from "../context/AppContext";
 export default function MainLayout() {
-    const mainStyle = {
-        content: {
-            height: '100vh',
+  const [generalForm,setGeneralForm] = useState({})
+  const [dialogStatus,setDialogStatus] = useState(false)
+  const store = useMemo(() => ({
+        AppForm(){
+            return generalForm;
         },
-        card: {
-            height: '100%',
-            marginTop: '0.5%',
-            height: '85vh',
-            backgroundColor: 'white'
+        setForm(form){
+            setGeneralForm(form)
+        },
+        setDiolog(status){
+            setDialogStatus(status)
+        },
+        getDialogStatus(){
+            return dialogStatus
         }
-    }
-    return (
-        <Stack direction={'column'}  >
+  }), [generalForm,dialogStatus])
+  const mainStyle = {
+    content: {
+      height: "100vh",
+    },
+    card: {
+      height: "100%",
+      marginTop: "0.5%",
+      height: "85vh",
+      backgroundColor: "white",
+    },
+  };
 
-            <Stack direction={'column'}>
-                <PrimarySearchAppBar />
-            </Stack>
+  return (
+    <Stack direction={"column"}>
+      <Stack direction={"column"}>
+        <PrimarySearchAppBar />
+      </Stack>
 
-            <Grid container spacing={2}>
-                {/* Sidebar */}
-                <Grid item xs={2}>
-                    <SideBar />
-                </Grid>
+      <Grid container spacing={2}>
+        {/* Sidebar */}
+        <Grid item xs={2}>
+          <SideBar />
+        </Grid>
 
-                {/* Content */}
-                <Grid item xs={10}>
-                    <Box style={mainStyle.content}>
-                        <AppCard
-                            style={mainStyle.card}
-                            title={'Home'}
-                            subTitle={'List of seafoods'}
-                            content={<Outlet />}
-                        />
-                        <h3>Footer</h3>
-                    </Box>
-                </Grid>
-            </Grid>
-        </Stack>
-    )
+        {/* Content */}
+        <Grid item xs={10}>
+          <Box style={mainStyle.content}>
+            <AppCard
+              style={mainStyle.card}
+              title={"Home"}
+              subTitle={"List of seafoods"}
+              content={
+                <AppContext.Provider value={store}>
+                  <Outlet />
+                </AppContext.Provider>
+              }
+            />
+            <h3>Footer</h3>
+          </Box>
+        </Grid>
+      </Grid>
+    </Stack>
+  );
 }
