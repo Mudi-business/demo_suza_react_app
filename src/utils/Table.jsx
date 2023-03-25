@@ -19,12 +19,12 @@ export default function BasicTable({rows} ) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row,index) => (
             <TableRow
-              key={row.name}
+              key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.seafood}</TableCell>
               <TableCell>{row.quantity}</TableCell>
               <TableCell>{row.price}</TableCell>
             </TableRow>

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState,useMemo, useContext } from "react";
 import GeneralDialogActions from "../utils/GeneralDialogActions";
 import PrimarySearchAppBar from "../utils/AppBar";
 import BasicDialog from "../utils/BasicDialog";
@@ -14,9 +14,9 @@ export default function Order() {
 
   const [rows, setRows] = useState([]);
   
-  const {AppForm,getDialogStatus,setDiolog} = useContext(AppContext);
+  const {AppForm,getDialogStatus,setDiolog,setForm} = useContext(AppContext);
   const open = getDialogStatus();
-  const appFormData = AppForm()
+  const appFormData = AppForm();
   const handleOnClick = () => {
     // setOpen(true);
     setDiolog(true)
@@ -26,8 +26,9 @@ export default function Order() {
     setDiolog(false)
   };
 
-
-  console.log(appFormData)
+  useMemo(()=>{
+    setRows(prev=>[...prev,appFormData])
+  },[appFormData])
 
   return (
     <div>
@@ -47,7 +48,7 @@ export default function Order() {
         // TUMEITA KUTOKA KWENYE COMPONENTS YA ORDER
         content={<SeafoodForm handleOnClose={handleOnClose} />}
       />
-      <BasicTable rows={rows} />
+      <BasicTable rows={Object.values(appFormData).length === 0?[]:rows} />
     </div>
   );
 }

@@ -12,6 +12,7 @@ export default function SeafoodForm({handleOnClose}) {
         <Stack spacing={1} direction={'column'}>
             <ValidationTextField
                 name={'seafood'}
+                value={seafood}
                 type={'text'}
                 placeholder={'Enter seafood name'}
                 helperText={''}
@@ -23,6 +24,7 @@ export default function SeafoodForm({handleOnClose}) {
             />
             <ValidationTextField
                 name={'quantity'}
+                value={quantity}
                 placeholder={'Enter quantity'}
                 helperText={''}
                 type={'number'}
@@ -33,6 +35,7 @@ export default function SeafoodForm({handleOnClose}) {
                 error={false}
             />
             <ValidationTextField
+                value={price}
                 name={'price'}
                 type={'number'}
                 placeholder={'Enter price'}
@@ -53,7 +56,9 @@ export default function SeafoodForm({handleOnClose}) {
                         price
                     })
                     setDiolog(false)
-
+                    setSeafood("")
+                    setQuantity(0)
+                    setPrice(0)
                 }}
                 handleOnClose={handleOnClose}
             />
