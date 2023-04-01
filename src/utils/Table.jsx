@@ -6,10 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import ProgresBar from "./ProgressBar";
 
-export default function BasicTable({rows} ) {
+export default function BasicTable({rows,loading,loadingColor} ) {
   return (
     <TableContainer component={Paper}>
+      {loading && <ProgresBar loadingColor={loadingColor} /> } 
       <Table sx={{ minWidth: 700 }} aria-label="simple table">
         <TableHead>
           <TableRow>

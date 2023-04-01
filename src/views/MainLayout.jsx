@@ -9,6 +9,7 @@ import { AppContext } from "../context/AppContext";
 export default function MainLayout() {
   const [generalForm,setGeneralForm] = useState({})
   const [dialogStatus,setDialogStatus] = useState(false)
+  const [tableLoading,setTableLoading] = useState(false)
   const store = useMemo(() => ({
         AppForm(){
             return generalForm;

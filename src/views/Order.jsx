@@ -8,14 +8,20 @@ import BasicTable from "../utils/Table";
 import CustomPaginationActionsTable from "../utils/Table";
 import SeafoodForm from "../components/order/SeafoodForm";
 import { AppContext } from "../context/AppContext";
+import environment from "../environment";
+import axios from "axios";
+
+
 export default function Order() {
   //sheria
   //state
 
-  const [rows, setRows] = useState([]);
+  const [order, setOrder] = useState([]);
   
-  const {AppForm,getDialogStatus,setDiolog,setForm} = useContext(AppContext);
+  const {AppForm,getDialogStatus,setDiolog,getTbLoading} = useContext(AppContext);
   const open = getDialogStatus();
+  const [loading,setLoading] = useState(false)
+  const [loadingColor,setLoadingColor] = useState('inherit')
   const appFormData = AppForm();
   const handleOnClick = () => {
     // setOpen(true);
@@ -26,9 +32,32 @@ export default function Order() {
     setDiolog(false)
   };
 
-  useMemo(()=>{
-    setRows(prev=>[...prev,appFormData])
+  useEffect(()=>{
+
+   
+     
+     async function fetch(){
+          try {
+            setLoading(true)
+            setLoadingColor('success')
+            const response = await axios.get(`${environment.baseApiUrl}58d87229539449efb5e8d3ea6a10001b/unicorns`)
+            console.log('resp :',response.data);
+            setOrder(response.data)
+            setLoading(false)
+          } catch (error) {
+            setTimeout(() => {
+              setLoading(false)
+            }, 4000);
+            setLoadingColor('error')
+          }
+      }
+      fetch();
+     
   },[appFormData])
+
+  // useMemo(()=>{
+  //   setRows(prev=>[...prev,appFormData])
+  // },[appFormData])
 
   return (
     <div>
@@ -48,7 +77,7 @@ export default function Order() {
         // TUMEITA KUTOKA KWENYE COMPONENTS YA ORDER
         content={<SeafoodForm handleOnClose={handleOnClose} />}
       />
-      <BasicTable rows={Object.values(appFormData).length === 0?[]:rows} />
+      <BasicTable rows={order} loading={loading} loadingColor={loadingColor} />
     </div>
   );
 }
