@@ -1,3 +1,4 @@
-export default {
-    baseApiUrl:'https://crudcrud.com/api/'
-}
+
+ export default {
+    baseApiUrl: 'https://crudcrud.com/api'
+ };
